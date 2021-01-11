@@ -44,72 +44,28 @@ to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
 """
 
-def callbyArea(areaCode): # Returns list of calls by area code
-  areaList = []
-  for item in calls:
-    if item[0].startswith(areaCode):
-      areaList.append(item)  
-  numCalls = len(areaList) 
-  return areaList, numCalls
+# Solution
+# Part A
+called_numbers = []
+for i in range(len(calls)):
+  if calls[i][0][:5] == '(080)': # for calls with code (080) fixed lines
+    if calls[i][1][0] == '(':  # check recv number codes with parantheses
+      par_index = calls[i][1].find(')')
+      called_numbers.append(calls[i][1][1:par_index])
+    elif calls[i][1][:3] == '140': # check telemarketers with code 140
+      called_numbers.append('140')
+    elif calls[i][1].startswith(('7', '8', '9')): # check mobile numbers with 7, 8, or 9
+      called_numbers.append(calls[i][1][:4])
 
-def noMarketers(areaList, areaCode): # Removes telemarketers and identifies fixed line received calls
-  recvList = []
-  numFixed = 0
-  for item in areaList:
-    if not item[1].startswith('140'): # check for non-telemarketer calls
-      recvList.append(item[1])
-      if item[1].startswith(areaCode): # check if receiver is fixed line
-        numFixed += 1  
-  return recvList, numFixed # Returns list of only receive calls & number of calls to fixed lines
+l = len(called_numbers) # count total calls in Bangalore
+count = called_numbers.count('080') # count total calls from fixed lines in Bangalore
+called_numbers = sorted(set(called_numbers))
 
-def codeList(recvList): # Returns a list of phone codes only
-  codesList = []
-  for item in recvList:
-    if item.startswith('('): # fixed lines
-      item = item.split(')').pop(0) + ')'
-      codesList.append(item)
-    elif item.startswith('7') or item.startswith('8') or item.startswith('9'): # mobile lines
-      item = item[0:4]
-      codesList.append(item)
-  return codesList
+#Print message
+print("The numbers called by people in Bangalore have codes:")
+for item in called_numbers:
+  print(item)
 
-def noDoubles(codesList):  # Remove duplicate numbers
-  noDoubles = {}  
-  unsortList = []
-  
-  for item in codesList: # populates a dictionary to remove doubles from codeList
-    if not item in noDoubles.keys():
-      noDoubles[item] = item
-  
-  for key in noDoubles: # converts dictionary back to list
-    unsortList.append(noDoubles.get(key))
-  return unsortList
-
-def test():
-
-  # 1. Create list of calls from (080)
-  areaCode = '(080)'
-  areaList, numCalls = callbyArea(areaCode)
-
-  # 2. Create list of received calls without telemarketers and to fixed numbers
-  recvList, numFixed = noMarketers(areaList, areaCode)
-  
-  # 3. Create a list of only codes
-  codesList = codeList(recvList)
-  
-  # 4. Remove duplicates
-  codesList = noDoubles(codesList)
-
-  # 5. Sort final list lexigraphically
-  codesList.sort() # O(n log n)
-
-  # Solution
-  # Part A
-  print("The numbers called by people in Bangalore have codes:")
-  for item in codesList:
-    print(item)
-
-  # Part B 
-  print('{0:.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.'.format((numFixed/numCalls)*100))
-
-test()  
+# Part B 
+percent = (count/l)*100
+print('{0:.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.'.format(percent))

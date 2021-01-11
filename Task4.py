@@ -32,6 +32,15 @@ for call in calls:
     outgoing.add(call[0])
     non_spam.add(call[1])
 
-spam = outgoing.difference(non_spam)
+for text in texts:
+    non_spam.add(text[0])
+    non_spam.add(text[1])
 
-print(sorted(spam)) # O(N log N)
+spam = outgoing.difference(non_spam)
+spam = sorted(spam)
+
+#Print message:
+print("These numbers could be telemarketers: ")
+for item in spam:
+    print(item)
+

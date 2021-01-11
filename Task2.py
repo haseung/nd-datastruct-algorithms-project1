@@ -19,38 +19,13 @@ Print a message:
 "<telephone number> spent the longest time, <total time> seconds, on the phone during 
 September 2016.".
 """
-
-def maxDuration(callNumbers):  
-    maxValue = 0
-    for key in callNumbers:
-        if callNumbers[key] > maxValue:
-            maxValue = callNumbers[key]
-            maxNum = key
-    return maxNum
-
-# Create empty dictionary for phone numbers
-callNumbers = {}
-
-# Populate dictionary for calls
+callNumbers={}
 for phoneLog in calls:
-    callNum, rcvNum, startTime, duration = phoneLog[0], phoneLog[1], phoneLog[2], int(phoneLog[3])
-    if not callNum in callNumbers.keys():
-        callNumbers[callNum] = 0
-    if not rcvNum in callNumbers.keys():
-        callNumbers[rcvNum] = 0
+    callNumbers[phoneLog[0]] = int(callNumbers.get(phoneLog[0], 0) + int(phoneLog[3]))
+    callNumbers[phoneLog[1]] = int(callNumbers.get(phoneLog[1], 0) + int(phoneLog[3]))
 
-    # Add call durations
-    if callNum in callNumbers.keys():
-        callNumbers[callNum] += duration
-    if rcvNum in callNumbers.keys():
-        callNumbers[rcvNum] += duration 
-
-# Identify max duration call
-maxNum = maxDuration(callNumbers)
+maxNum = max(callNumbers, key = lambda k: callNumbers[k])
+maxDuration = callNumbers[maxNum]
 
 # Print Message
-print("{0} spent the longest time, {1} seconds, on the phone during September 2016.".format(maxNum, callNumbers[maxNum]))
-
-
-
-
+print("{0} spent the longest time, {1} seconds, on the phone during September 2016.".format(maxNum, maxDuration))

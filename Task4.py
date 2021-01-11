@@ -25,40 +25,13 @@ Print a message:
 The list of numbers should be print out one per line in lexicographic order with no duplicates.
 """
 
-def noDuplicates(Log): # Returns list of unique phone numbers
-    phoneDict = {}
-    for phoneLog in Log:
-        sendNum, rcvNum = phoneLog[0], phoneLog[1]
-        if not sendNum in phoneDict.keys():
-            phoneDict[sendNum] = sendNum
-        if not rcvNum in phoneDict.keys():
-            phoneDict[rcvNum] = rcvNum 
-    return phoneDict    
+outgoing = set()
+non_spam = set()
 
-def teleMarket(callDict, textDict):
-    spamDict = {}
-    num140 = 0
-    numNotext = 0
+for call in calls:
+    outgoing.add(call[0])
+    non_spam.add(call[1])
 
-    for key in callDict:
-        # include numbers that start with 140
-        if key.startswith('140'):
-            spamDict[key] = key
-            num140 += 1
+spam = outgoing.difference(non_spam)
 
-        # include numbers that are not in texts
-        elif not key in textDict.keys():
-            spamDict[key] = key
-            numNotext += 1
-    return spamDict
-
-def test():
-    callDict = noDuplicates(calls)
-    textDict = noDuplicates(texts)
-    spamDict = teleMarket(callDict, textDict)
-
-    print("These numbers could be telemarketers: ")
-    for key in spamDict:
-        print(key)
-    
-test()
+print(sorted(spam)) # O(N log N)

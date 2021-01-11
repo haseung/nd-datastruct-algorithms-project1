@@ -93,7 +93,7 @@ def test():
 
   # 2. Create list of received calls without telemarketers and to fixed numbers
   recvList, numFixed = noMarketers(areaList, areaCode)
-
+  
   # 3. Create a list of only codes
   codesList = codeList(recvList)
   
@@ -101,7 +101,7 @@ def test():
   codesList = noDoubles(codesList)
 
   # 5. Sort final list lexigraphically
-  codesList.sort()
+  codesList.sort() # O(n log n)
 
   # Solution
   # Part A
@@ -110,6 +110,6 @@ def test():
     print(item)
 
   # Part B 
-  print('{0:.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.'.format(numFixed / numCalls))
+  print('{0:.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.'.format((numFixed/numCalls)*100))
 
 test()  

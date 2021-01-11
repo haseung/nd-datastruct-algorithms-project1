@@ -19,29 +19,14 @@ Print a message:
 "There are <count> different telephone numbers in the records."
 """
 
-def test():
-    print("Total Text Numbers: ", len(textNumbers))
-    print("Total Call Numbers: ", len(callNumbers))
-    print("Total Phone Numbers: ", len(phoneNumbers))
+phoneNumbers = set()
+for call in calls:
+    phoneNumbers.add(call[0])
+    phoneNumbers.add(call[1])
 
-# create dictionary for phone numbers
-textNumbers = {}
-callNumbers = {}
-phoneNumbers ={}
-
-# Populate dictionary for texts
-for item in texts:
-    textNumbers[item[0]] = 0
-    textNumbers[item[1]] = 0
-
-# Population dictionary for calls
-for item in calls:
-    callNumbers[item[0]] = 0
-    callNumbers[item[1]] = 0
-
-# Update phone list to identify unique numbers
-phoneNumbers.update(textNumbers)
-phoneNumbers.update(callNumbers)
+for text in texts:
+    phoneNumbers.add(text[0])
+    phoneNumbers.add(text[1])
 
 # Print message
 print("There are {0} different telephone numbers in the records.".format(len(phoneNumbers)))

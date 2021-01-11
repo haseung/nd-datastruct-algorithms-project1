@@ -1,0 +1,14 @@
+Prepared by Harrison Seung
+Dated: 01/11/2020
+Subject: Data Structures & Algorithms Project 1 Worst Case Big O Notation
+
+Task0: O(n) -> Time complexity is linear with n operations with each input is processed once through entire code.  
+
+Task1: O(n) -> Time complexity is linear with n operations with each input is processed once through entire code. 
+
+Task2: O(n) -> Time complexity is linear with n operations with each input is processed once through entire code.   
+
+Task3: O(n log n) -> Time complexity is n log n due to use of list.sort() on list 'codesList'
+
+Task4: O(n log n) -> Time complexity is n log n due to use of set fuction sorted() on set 'spam'   
+
